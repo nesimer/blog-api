@@ -1,15 +1,19 @@
 import {
+  Column,
+  CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  Column,
   UpdateDateColumn,
-  CreateDateColumn,
 } from 'typeorm';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn('uuid', { name: 'user_id' })
-  userId: string;
+
+  @CreateDateColumn()
+  created: Date;
+
+  @Column({ type: 'varchar', name: 'email', length: 200 })
+  email: string;
 
   @Column({ type: 'varchar', name: 'first_name', length: 100 })
   firstName: string;
@@ -20,15 +24,11 @@ export class User {
   @Column({ type: 'varchar', name: 'mobile_phone', length: 31 })
   mobilePhone: string;
 
-  @Column({ type: 'varchar', name: 'email', length: 200 })
-  email: string;
-
   @Column({ type: 'varchar', name: 'password' })
   password: string;
 
-  @CreateDateColumn()
-  created: Date;
-
   @UpdateDateColumn()
   updated: Date;
+  @PrimaryGeneratedColumn('uuid', { name: 'user_id' })
+  userId: string;
 }

@@ -1,18 +1,20 @@
 import { createConnection } from 'typeorm';
+import { ConfigService } from './../../config/config.service';
 
 export const databaseProviders = [
   {
-    provide: 'MySqlConnection',
-    useFactory: async () =>
+    provide: 'PostgresConnection',
+    useFactory: async (configService: ConfigService) =>
       await createConnection({
-        type: 'mysql',
-        host: 'localhost',
-        port: 3306,
-        username: 'admin',
-        password: 'admin',
-        database: 'blog',
+        type: 'postgres',
+        host: configService.getString('DB_HOST'),
+        port: configService.getNumber('DB_PORT'),
+        username: configService.getString('DB_USER'),
+        password: configService.getString('DB_PWD'),
+        database: configService.getString('DB_NAME'),
         entities: [__dirname + '/../../**/*.entity{.ts,.js}'],
         synchronize: true,
       }),
+    inject: [ConfigService],
   },
 ];

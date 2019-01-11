@@ -1,10 +1,9 @@
-import { Repository } from 'typeorm';
+import { UserRepository } from './user.repository';
 import { UserService } from './user.service';
-import { User } from './entity/user.entity';
 
 describe('UserService', () => {
   let service: UserService;
-  let repository: Repository<User>;
+  let repository: UserRepository;
 
   beforeAll(async () => {
     repository = {} as any;
