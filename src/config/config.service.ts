@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import * as dotenv from 'dotenv';
+import * as dotenv from 'dotenv-safe';
 import * as path from 'path';
 
 type EnvType =
@@ -8,7 +8,10 @@ type EnvType =
   | 'DB_HOST'
   | 'DB_USER'
   | 'DB_PWD'
-  | 'PORT';
+  | 'PORT'
+  | 'SECRET_KEY'
+  | 'DEFAULT_EXPIRATION'
+  | 'AUTH_ALGORITHM';
 
 @Injectable()
 export class ConfigService {
@@ -17,8 +20,9 @@ export class ConfigService {
     if (process.env.NODE_ENV === 'test') {
       filename = `.env.${process.env.NODE_ENV}`;
     }
-    dotenv.config({
+    dotenv.load({
       path: path.resolve(process.cwd(), filename),
+      allowEmptyValues: true,
     });
   }
 
@@ -27,7 +31,7 @@ export class ConfigService {
   }
 
   getNumber(key: EnvType) {
-    return +process.env[key] as number | undefined;
+    return +(process.env[key] || 0) as number;
   }
 
   getString(key: EnvType) {

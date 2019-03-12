@@ -1,17 +1,22 @@
 {
   "compilerOptions": {
+    "typeRoots": ["./node_modules/@types/"],
     "module": "commonjs",
-    "declaration": true,
-    "noImplicitAny": false,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "noUnusedLocals": true,
+    // https://github.com/nestjs/nest/issues/81
+    "skipLibCheck": true,
     "removeComments": true,
-    "noLib": false,
-    "allowSyntheticDefaultImports": true,
+    "lib": ["es2017"],
+    "target": "es6",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./"
+    "allowJs": true,
+    "outDir": "./dist"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
