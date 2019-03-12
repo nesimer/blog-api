@@ -8,7 +8,7 @@ export const databaseProviders = [
       await createConnection({
         type: 'postgres',
         host: configService.getString('DB_HOST'),
-        port: configService.getNumber('DB_PORT'),
+        port: +configService.getString('DB_PORT')!,
         username: configService.getString('DB_USER'),
         password: configService.getString('DB_PWD'),
         database: configService.getString('DB_NAME'),
